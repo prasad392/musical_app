@@ -1,6 +1,5 @@
-// app/index.tsx
 import React, { useEffect, useState } from 'react';
-import {Ionicons} from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import {
   View,
   Text,
@@ -13,7 +12,7 @@ import {
 } from 'react-native';
 import * as Font from 'expo-font';
 import { useRouter } from 'expo-router';
-import { PanGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -38,6 +37,7 @@ export default function Index() {
     [{ nativeEvent: { translationX: translateX } }],
     { useNativeDriver: true }
   );
+
   const onHandlerStateChange = ({ nativeEvent }: any) => {
     if (nativeEvent.translationX > 150) {
       router.push('/login');
@@ -48,44 +48,45 @@ export default function Index() {
       }).start();
     }
   };
+
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <View style={styles.splash}>
-          <Image
-            source={require('@/assets/splash/image 4.png')}
-            style={styles.splashimg}
-            resizeMode="cover"
-          />
-          <View style={styles.sudarshini}>
-            <Text style={styles.sudarshinitxt}>SUDARSHINI ACADEMY</Text>
-          </View>
-          <View style={styles.celeb}>
-            <Text style={styles.celebtxt}>
-              Celebrate the Soul of <Text style={{ color: '#f4f812ff' }}>Music</Text>
-            </Text>
-          </View>
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
+      <View style={styles.splash}>
+        <Image
+          source={require('@/assets/splash/image 4.png')}
+          style={styles.splashimg}
+          resizeMode="cover"
+        />
+        <View style={styles.sudarshini}>
+          <Text style={styles.sudarshinitxt}>SUDARSHINI ACADEMY</Text>
         </View>
-        <View style={styles.splashbox}>
-          <Text style={styles.splashtxt}>
-            Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit
-            interdum, ac aliquet odio mattis.
+        <View style={styles.celeb}>
+          <Text style={styles.celebtxt}>
+            Celebrate the Soul of <Text style={{ color: '#f4f812ff' }}>Music</Text>
           </Text>
         </View>
-        <View style={styles.swipebox}>
-          <PanGestureHandler
-            onGestureEvent={onGestureEvent}
-            onEnded={onHandlerStateChange}
-          >
-            <Animated.View style={[styles.box, { transform: [{ translateX }] }]}>
-              <Text style={styles.text}><Ionicons name="arrow-forward-circle-outline" size={28}/></Text>
-            </Animated.View>
-          </PanGestureHandler>
-          <Text style={{fontSize:20,fontWeight:600}}>Swipe to get started</Text>
-        </View>
       </View>
-    </GestureHandlerRootView>
+      <View style={styles.splashbox}>
+        <Text style={styles.splashtxt}>
+          Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit
+          interdum, ac aliquet odio mattis.
+        </Text>
+      </View>
+      <View style={styles.swipebox}>
+        <PanGestureHandler
+          onGestureEvent={onGestureEvent}
+          onEnded={onHandlerStateChange}
+        >
+          <Animated.View style={[styles.box, { transform: [{ translateX }] }]}>
+            <Text style={styles.text}>
+              <Ionicons name="arrow-forward-circle-outline" size={28} />
+            </Text>
+          </Animated.View>
+        </PanGestureHandler>
+        <Text style={{ fontSize: 20, fontWeight: '600' }}>Swipe to get started</Text>
+      </View>
+    </View>
   );
 }
 
@@ -150,20 +151,19 @@ const styles = StyleSheet.create({
     height: 52,
     backgroundColor: '#F0CF45',
     borderRadius: 28,
-    // justifyContent: 'space-evenly',
     overflow: 'hidden',
-    flexDirection:'row',
-    alignItems:'center',
-    gap:30
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 30,
   },
   box: {
     backgroundColor: '#3e3e3e',
     borderRadius: 50,
     width: 50,
-    height:53,
+    height: 53,
     alignItems: 'center',
-    justifyContent:'center',
-    zIndex:1000
+    justifyContent: 'center',
+    zIndex: 1000,
   },
   text: {
     color: '#fff',
