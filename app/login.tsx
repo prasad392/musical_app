@@ -1,4 +1,4 @@
-import { View, Text, StatusBar, StyleSheet, Platform, Alert, TouchableOpacity } from 'react-native'
+import { View, Text, StatusBar, StyleSheet, Platform, Alert, TouchableOpacity, Image, Modal } from 'react-native'
 import React, { useState } from 'react'
 import {Ionicons} from '@expo/vector-icons';
 import { router } from 'expo-router';
@@ -7,15 +7,34 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox'
 import { Formik } from 'formik';
 import Loginschema from '@/src/loginschema/loginschema';
-import { loginData } from '@/src/data/credentials';
+import { loginData, OTPdata } from '@/src/data/credentials';
+import OTPSuccessModal from '@/src/modals/OTPSuccessModal';
 
 const Login = () => {
   const [passeye,setPasseye] = useState(false)
   const [isChecked,setIsChecked] = useState(false)
   const [ispopupFail,setIspopupFail] = useState(false)
+  const [ispopupSuccess,setIspopupSuccess] = useState(false);
+  const [isprogress,setIsprogress]= useState(false);
+  const [isforgotpassword,setIsforgotpassword] = useState(false);
+  const [isOtp,setIsOtp] = useState(false)
+  const [currentOtp,setCurrentOtp] = useState('')
 
+  const generateOtp = ()=>{
+    const newotpdata = OTPdata
+    const res = Math.floor(Math.random()*newotpdata.length)
+    return newotpdata[res];
+  }
+
+  const handleLoginSuccess=()=>{
+    setIspopupSuccess(true)
+    setIsprogress(true)
+    setTimeout(() => {
+      setIspopupSuccess(false)
+      router.push('/(tabs)/home')
+    }, 3000);
+  }
   return(
-    <ScrollView>
       <View style={styles.container}>
         <StatusBar barStyle={'light-content'}/>
         <View style={styles.login}>
@@ -34,7 +53,7 @@ const Login = () => {
           onSubmit={(values)=>{
             const userExist = loginData.some((user)=>user.userEmail === values.email && user.userpassword === values.password)
             if(userExist){
-              Alert.alert('login successfull')
+              handleLoginSuccess()
             }
             else{
               setIspopupFail(true)
@@ -51,6 +70,8 @@ const Login = () => {
                   </View> 
                   <View style={styles.progContainer}>
                     {
+                      values.email && values.password &&  isprogress ?
+                      <Progressbar progress={100}/> :
                       values.email && values.password
                         ? <Progressbar progress={90}/>
                         : values.email
@@ -126,12 +147,26 @@ const Login = () => {
                     <Text style={styles.otptxt}>Login Via OTP</Text>
                   </View>
                   <View style={styles.forgotpass}>
-                    <Text style={styles.forgotpasstxt}>forgot password?</Text>
+                    <Text style={styles.forgotpasstxt} onPress={()=>setIsforgotpassword(true)}>forgot password?</Text>
                   </View>
                 </View>
                 {/* submit box */}
                 <View style={styles.continuebox}>
-                  <TouchableOpacity style={styles.continuebtn} onPress={()=>handleSubmit()}>
+                  <TouchableOpacity 
+                  style={styles.continuebtn} 
+                  onPress={()=>{
+                    handleSubmit()
+                    setTimeout(() => {
+                      setFieldValue('email','')
+                      setFieldValue('password','')
+                    }, 5000);
+                    if(isChecked){
+                      const otp = generateOtp();
+                      setCurrentOtp(otp)
+                      setIsOtp(true)
+                    }
+                  }}
+                  >
                     <Text style={styles.continuetxt}>Continue</Text>
                   </TouchableOpacity>
                 </View>
@@ -142,6 +177,36 @@ const Login = () => {
               </View>
             )}
           </Formik>
+          
+          {/* forgot password modal */}
+          <Modal
+          visible={isforgotpassword}
+          transparent={true}
+          animationType='slide'
+          onRequestClose={()=>setIsforgotpassword(false)}
+          >
+            <View style={styles.modalOverlay}>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalTitle}>Forgot Password ?</Text>
+                <Text style={styles.modalText}>
+                  {
+                    loginData.map((item,index)=>(
+                      <View key={index}>
+                        <Text style={{width:250,fontWeight:600,fontSize:16,marginVertical:20}}>Email: {item.userEmail}</Text>
+                        <Text style={{width:250,fontWeight:600,fontSize:16,marginVertical:20}}>password: {item.userpassword}</Text>
+                      </View>
+                    ))
+                  }
+                </Text>
+                <TouchableOpacity
+                style={styles.closeButton}
+                onPress={()=>setIsforgotpassword(false)}
+                >
+                  <Text style={styles.closeText}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
           {/* pop up fail message */} 
           <View style={[styles.popfail,{display:ispopupFail?'flex':'none'}]}> 
             <View style={styles.popupfail}>
@@ -163,11 +228,35 @@ const Login = () => {
             </View>
             </View>
           </View>
+          {/* popup succes message */}
+          <View style={[styles.popsuccess,{display:ispopupSuccess?'flex':'none'}]}> 
+            <View style={styles.popupsuccess}>
+              <View style={{width:170,height:170,borderRadius:'50%',backgroundColor:'#ecb935ff',alignItems:'center',justifyContent:'center'}}>
+                <View style={{width:90,height:90,borderRadius:'50%',backgroundColor:'#ffdd00',alignItems:'center',justifyContent:'center'}}>
+                  <Text><Ionicons name="checkmark" size={60} ></Ionicons></Text>
+                </View>
+              </View>
+            </View>
+            <View style={{alignItems:'center',marginVertical:20}}>
+              <Text style={{color:'#fff',fontWeight:600,fontSize:32,marginBottom:10}}>Success</Text>
+              <Text style={{color:'#fff',width:190,fontSize:20}}>Your identity has been verified successfully</Text>
+            </View>
+          </View>
+          
+           {/* OTP display message */}
+          <View style={{display:isOtp ? 'flex' : 'none'}}>
+            <OTPSuccessModal visible={isOtp} 
+            onClose={()=>{
+              setIsOtp(false)
+              router.push('/otp')
+            }}
+            otp={currentOtp}
+            />
+          </View>
 
         </View>
         
       </View>
-    </ScrollView>
   )
 }
 
@@ -375,6 +464,59 @@ const styles = StyleSheet.create({
     height:'100%',
     alignItems:'center',
     justifyContent:'center'
-  }
+  },
+  popsuccess:{
+    backgroundColor: "#212529",
+    position:'absolute',
+    flex:1,
+    zIndex:1000,
+    width:'100%',
+    height:'100%',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  popupsuccess:{
+    backgroundColor:'#a47e1b',
+    width:230,
+    height:230,
+    borderRadius:'50%',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  
+ modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalText: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  closeButton: {
+    backgroundColor: '#ffd60a',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  closeText: {
+    color: '#fff',
+    fontSize: 18,
+  },
+
 
 })

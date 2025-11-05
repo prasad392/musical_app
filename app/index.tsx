@@ -102,8 +102,9 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   splashimg: {
-    width: 394,
+    width: 430,
     height: 550,
+    marginTop:40
   },
   sudarshini: {
     position: 'absolute',
