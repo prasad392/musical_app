@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { OTPdata } from '../data/credentials';
 
 type otptype ={
     visible:boolean;

@@ -9,6 +9,7 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{headerShown:false}}/>
         <Stack.Screen name="index" options={{ title: "Home" ,headerShown:false}} />
         <Stack.Screen name="login" options={{ title: "Login",headerShown:false }} />
+        <Stack.Screen name="otp" options={{title:'OTP', headerShown:false}}/>
       </Stack>
     </GestureHandlerRootView>
   );
