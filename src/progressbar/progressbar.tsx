@@ -27,7 +27,7 @@ container: {
     justifyContent:'space-evenly'
   },
   progressBackground: {
-    width: 350,
+    width: 280,
     height: 20,
     backgroundColor: '#333',
     borderRadius: 10,

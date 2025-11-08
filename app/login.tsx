@@ -207,6 +207,7 @@ const Login = () => {
               </View>
             </View>
           </Modal>
+
           {/* pop up fail message */} 
           <View style={[styles.popfail,{display:ispopupFail?'flex':'none'}]}> 
             <View style={styles.popupfail}>
@@ -228,6 +229,7 @@ const Login = () => {
             </View>
             </View>
           </View>
+          
           {/* popup succes message */}
           <View style={[styles.popsuccess,{display:ispopupSuccess?'flex':'none'}]}> 
             <View style={styles.popupsuccess}>

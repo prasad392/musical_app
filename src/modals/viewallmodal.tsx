@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Viewallcard from '../components/customcards/viewallcard';
 import { ScrollView } from 'react-native-gesture-handler';
 import { mentorsdata } from '../data/mochdata';
+import Modalheader from './modalheader/modalheader';
 
 type props ={
     visible:boolean;
@@ -18,17 +19,22 @@ const Viewallmodal:React.FC<props> = ({visible,onClose}) => {
     onRequestClose={onClose}
     >
         <View style={styles.overlay}>
+            <Modalheader headerText='Our Mentors' onClose={onClose}/>
             <ScrollView contentContainerStyle={{flexGrow:1}}>
-                <View style={styles.mentorHeader}>
-                    <TouchableOpacity onPress={onClose} style={styles.closebtn}>
-                      <Ionicons name='chevron-back-circle-outline' size={42} color={'#fff'}/>
-                    </TouchableOpacity>
-                    <View>
-                      <Text style={styles.mentortxt}>Our Mentors</Text>
-                    </View>
-                </View>
                 <View style={styles.mentors}>
-                    <Viewallcard />
+                    {
+                        mentorsdata.slice(0,2).map((item)=>(
+                            <View key={item.id}>
+                                <Viewallcard 
+                                name={item.name} 
+                                info={item.info} 
+                                role={item.role} 
+                                desg={item.desg} 
+                                img={item.img}  
+                                />
+                            </View>
+                        ))
+                    }
                 </View>
             </ScrollView>
         </View>
@@ -43,27 +49,6 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor: '#1D1D1D',
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
-    },
-    mentorHeader:{
-        marginVertical:10,
-        backgroundColor:'#2D2D2D',
-        height:85,
-        alignItems:'center',
-        justifyContent:'flex-start',
-        flexDirection:'row',
-        gap:50,
-        width:'98%',
-        marginHorizontal:'auto',
-        borderBottomEndRadius:12,
-        borderBottomStartRadius:12
-    },
-    closebtn:{
-        marginLeft:30
-    },
-    mentortxt:{
-        fontWeight:600,
-        fontSize:24,
-        color:'#fff'
     },
     mentors:{
 

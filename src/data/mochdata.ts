@@ -1,11 +1,26 @@
 
 export const mentorsdata = [
-    {id:1,img:require('@/assets/mentors/0ab346a6f72d801c0b823b1c4f62b0893757ab92.jpg'),title:'sudarshini 01',content:'Master the art of RAGA'},
-    {id:2,img:require('@/assets/mentors/2e79d81f793e01b23fc9379682ef98731578ecae.png'),title:'sudarshini 02',content:'Master the art of RAGA'},
-    {id:3,img:require('@/assets/mentors/14d7098314fec7fcc655d594bb805a2c8ef74f12.png'),title:'sudarshini 03',content:'Master the art of RAGA'},
-    {id:4,img:require('@/assets/mentors/c20ce90f8a3dde4ba7033a74cc3b4405a430a5c0.png'),title:'sudarshini 04',content:'Master the art of RAGA'},
-    {id:5,img:require('@/assets/mentors/2e79d81f793e01b23fc9379682ef98731578ecae.png'),title:'sudarshini 05',content:'Master the art of RAGA'},
-    {id:6,img:require('@/assets/mentors/14d7098314fec7fcc655d594bb805a2c8ef74f12.png'),title:'sudarshini 06',content:'Master the art of RAGA'},
+    {
+      id:1,
+      img:require('@/assets/mentors/0ab346a6f72d801c0b823b1c4f62b0893757ab92.jpg'),
+      name:'Dr. Lakhmi surya Teja',
+      desg:'Expert Music mentor',
+      role:'Founder',
+      info:'Dr. Lakshmi Surya Teja, a Carnatic vocalist, meditator, Sudarshini founder, uniting music, meditation, and spiritual healing.'
+    },
+
+    {
+      id:2,
+      img:require('@/assets/mentors/2e79d81f793e01b23fc9379682ef98731578ecae.png'),
+      name:'Praveena manohar',
+      desg:'Expert Music mentor',
+      role:'Director',
+      info:'Praveena manohar a Carnatic vocalist, meditator, Sudarshini founder, uniting music, meditation, and spiritual healing.'
+    },
+    {id:3,img:require('@/assets/mentors/14d7098314fec7fcc655d594bb805a2c8ef74f12.png'),name:'sudarshini 03',content:'Master the art of RAGA'},
+    {id:4,img:require('@/assets/mentors/c20ce90f8a3dde4ba7033a74cc3b4405a430a5c0.png'),name:'sudarshini 04',content:'Master the art of RAGA'},
+    {id:5,img:require('@/assets/mentors/2e79d81f793e01b23fc9379682ef98731578ecae.png'),name:'sudarshini 05',content:'Master the art of RAGA'},
+    {id:6,img:require('@/assets/mentors/14d7098314fec7fcc655d594bb805a2c8ef74f12.png'),name:'sudarshini 06',content:'Master the art of RAGA'},
 ]
 export const banners = [
   {
@@ -26,4 +41,27 @@ export const categoriesData =[
     {id:1,title:'Ebook',content:'Classical music excellence guide',icon:'book'},
     {id:2,title:'Events',content:'Classical Harmony events',icon:'calendar-clear'},
     {id:3,title:'Course',content:'Classical Harmony guidance',icon:'happy'},
+]
+
+export const EbookCardData = [
+  {id:1,head:'Saraliswarams',para:'This Ebook consists of basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm...'},
+  {id:2,head:'SAS_Ebook_Level 1', para:'This Ebook consists of basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm...'}
+]
+
+export const EventCardData = [
+  {
+    id:1,
+    head:'Workshop',
+    timing1:'14 Sept 2024 | 5:00pm',
+    timig2:'16 Sept 2024 | 7:00pm',
+    bgimg:require('@/assets/events/9ac017cb8b7c58f4ea7121e42e200138183769ba.png')
+  },
+  {
+    id:2,
+    head:'Sangītārdhamu',
+    timing1:'07 Jul 2024 | 4:00pm',
+    timig2:'07 Jul 2024 | 5:00pm',
+    bgimg:require('@/assets/events/3668d563f8f515dc02f445fd3d5f2c18fb7f6666.png')
+  }
+
 ]

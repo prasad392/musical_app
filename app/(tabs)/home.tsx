@@ -7,12 +7,48 @@ import { banners, categoriesData, mentorsdata } from '@/src/data/mochdata';
 import Categorycard from '@/src/components/customcards/categorycard';
 import Notifymodal from '@/src/modals/notifymodal';
 import Viewallmodal from '@/src/modals/viewallmodal';
+import Ebookmodal from '@/src/modals/ebookmodal';
+import Eventmodal from '@/src/modals/eventmodals/eventmodal';
+import Coursemodal from '@/src/modals/coursemodal/coursemodal';
 const { width } = Dimensions.get('window');
 
-const Home = () => {
-  const [isnotify,setIsnotify] = useState(false);
-  const [isviewall,setIsviewall] = useState(false);
+type catitems ={
+  title:string;
+}
+type res={
+    id: number;
+    title: string;
+    content: string;
+    icon: string;
+} | undefined
 
+const Home = () => {
+  const [sections,setSections] =useState({
+    notify:false,
+    viewall:false,
+  })
+  const [iscategory,setIscategory] = useState({
+    book:false,
+    event:false,
+    course:false,
+  })
+
+  const handlecatCick=(item:catitems)=>{
+    const res:res = categoriesData.find(c=>c.title === item.title);
+    console.log(res?.title)
+    if(res?.title === 'Ebook'){
+      setIscategory(prev=>({...prev,book:true}))
+    }
+    else if(res?.title === 'Events'){
+      setIscategory(prev=>({...prev,event:true}))
+    }
+    else if(res?.title === 'Course'){
+      setIscategory(prev=>({...prev,course:true}))
+    }
+    else{
+      console.log('category not triggered')
+    }
+  }
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#1D1D1D" />
@@ -23,7 +59,7 @@ const Home = () => {
         <View style={styles.homeHeader}>
           <Text style={{ color: '#fff', fontSize: 24 }}>Hello, Prasad 😁</Text>
           <View style={styles.bellicon}>
-            <TouchableOpacity onPress={()=>setIsnotify(true)}>
+            <TouchableOpacity onPress={()=>setSections(prev=>({...prev,notify:true}))}>
               <Ionicons name="notifications-circle-outline" size={42} color="#fff" />
             </TouchableOpacity>
           </View>
@@ -54,7 +90,7 @@ const Home = () => {
         <View style={styles.mentorsbox}>
           <View style={styles.mentorview}>
             <Text style={styles.mentortxt}>Mentors</Text>
-            <TouchableOpacity onPress={()=>setIsviewall(true)}>
+            <TouchableOpacity onPress={()=>setSections(prev=>({...prev,viewall:true}))}>
               <Text style={styles.viewtxt}>View All</Text>
             </TouchableOpacity>
           </View>
@@ -82,21 +118,38 @@ const Home = () => {
               {
                 categoriesData.map((item)=>(
                   <View key={item.id}>
-                    <Categorycard title={item.title} content={item.content} icon={item.icon}/>
+                    <Categorycard title={item.title} content={item.content} icon={item.icon} onpress={()=>handlecatCick({title:item.title})}/>
                   </View>
                 ))
               }
             </ScrollView>
           </View>
         </View>
-
-        <View style={{display:isnotify?'flex':'none'}}>
-          <Notifymodal visible={isnotify} onClose={()=>setIsnotify(false)}/>
+          
+        {/* notification modal */}
+        <View style={{display:sections.notify?'flex':'none'}}>
+          <Notifymodal visible={sections.notify} onClose={()=>setSections(prev=>({...prev,notify:false}))}/>
         </View>
 
-        <View style={{display:isviewall ? 'flex':'none'}}>
-            <Viewallmodal onClose={()=>setIsviewall(false)} visible={isviewall}/> 
-        </View>     
+        {/* mentors modal */}
+        <View style={{display:sections.viewall ? 'flex':'none'}}>
+            <Viewallmodal onClose={()=>setSections(prev=>({...prev,viewall:false}))} visible={sections.viewall}/> 
+        </View>
+
+        {/* Ebook modal */}
+        <View style={{display:iscategory.book ? 'flex':'none'}}>
+            <Ebookmodal onClose={()=>setIscategory(prev=>({...prev,book:false}))} visible={iscategory.book}/>
+        </View>
+        
+        {/* events modal */}
+        <View style={{display:iscategory.event ? 'flex' : 'none'}}>
+          <Eventmodal visible={iscategory.event} onClose={()=>setIscategory(prev=>({...prev,event:false}))}/>
+        </View>
+
+        {/* course modal */}
+        <View style={{display:iscategory.course ? 'flex' : 'none'}}>
+          <Coursemodal visible={iscategory.course} onClose={()=>setIscategory(prev=>({...prev,course:false}))}/>
+        </View>
       </ScrollView>
     </View>
   );

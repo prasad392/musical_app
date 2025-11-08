@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -6,15 +6,18 @@ type props ={
     title:string;
     content:string;
     icon:any;
+    onpress:()=>void;
 }
-const Categorycard:React.FC<props> = ({title,content,icon}) => {
+const Categorycard:React.FC<props> = ({title,content,icon,onpress}) => {
   return (
-    <View style={styles.mycard}>
+    <TouchableOpacity onPress={onpress}>
+      <View style={styles.mycard}>
       <Text style={{marginLeft:20,marginTop:20}}><Ionicons name={icon} color={'#ffd60a'} size={40}/></Text>
       <Text style={styles.ebooktxt}>{title}</Text>
       <Text style={styles.classtxt}>{content}</Text>
       <Text style={{marginVertical:10,textAlign:'right',marginRight:10}}><Ionicons name='chevron-forward-circle-outline' size={36} color={'#fff'}/></Text>
     </View>
+    </TouchableOpacity>
   )
 }
 
