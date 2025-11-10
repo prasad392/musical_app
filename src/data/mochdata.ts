@@ -65,3 +65,121 @@ export const EventCardData = [
   }
 
 ]
+
+export const courseCardData = [
+  {
+    id:1,
+    head:'Saraliswaras',
+    series:'1 to 12 Saraliswaras',
+    curriculum:'curriculum 1'
+  },
+  {
+    id:2,
+    head:'Jantaswaras',
+    series:'1 to 12 Jantaswaras',
+    curriculum:'curriculum 1'
+  },
+  {
+    id:3,
+    head:'Alankaras',
+    series:'1 to 7 Alankaras',
+    curriculum:'curriculum 1'
+  },
+]
+
+export const curriculumDocumentCardData = [
+  {
+    id:1,
+    head:'Saraliswaras',
+    content:'This consists of basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm...'
+  },
+  {
+    id:2,
+    head:'Jantaswaras',
+    content:'This consists of basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm...'
+  },
+  {
+    id:3,
+    head:'Alankaras',
+    content:'This consists of basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm...'
+  },
+  {
+    id:4,
+    head:'Saraliswaras',
+    content:'This consists of basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm...'
+  },
+]
+
+export const curriculumVideoCardData = [
+  {
+    id:1,
+    head:'Saraliswaras',
+    content:'This video features basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm.'
+  },
+  {
+    id:2,
+    head:'Jantaswaras',
+    content:'This video features basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm.'
+  },
+  {
+    id:3,
+    head:'Alankaras',
+    content:'This video features basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm.'
+  },
+  {
+    id:4,
+    head:'Saraliswaras',
+    content:'This video features basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm.'
+  },
+]
+
+// export const myData = [
+//   {
+//     documents:[
+//       {
+//       id:1,
+//       head:'Saraliswaras',
+//       content:'This consists of basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm...'
+//     },
+//     {
+//       id:2,
+//       head:'Jantaswaras',
+//       content:'This consists of basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm...'
+//     },
+//     {
+//       id:3,
+//       head:'Alankaras',
+//       content:'This consists of basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm...'
+//     },
+//     {
+//       id:4,
+//       head:'Saraliswaras',
+//       content:'This consists of basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm...'
+//     },
+//     ]
+//   },
+//   {
+//     videos:[
+//       {
+//         id:1,
+//         head:'Saraliswaras',
+//         content:'This video features basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm.'
+//       },
+//       {
+//         id:2,
+//         head:'Jantaswaras',
+//         content:'This video features basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm.'
+//       },
+//       {
+//         id:3,
+//         head:'Alankaras',
+//         content:'This video features basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm.'
+//       },
+//       {
+//         id:4,
+//         head:'Saraliswaras',
+//         content:'This video features basic musical notes in Māyāmāḷavagauḷa rāga, set to Ādi tāḷa with classical rhythm.'
+//       },
+//     ]
+//   }
+// ]

@@ -10,10 +10,12 @@ type EventBox ={
     timing1:string;
     timig2:string;
 }
+
 type EventItem ={
     data:EventBox[];
     onpress:()=>void;
 }
+
 const Eventcard:React.FC<EventItem> = ({data,onpress}) => {
     return(
         <>

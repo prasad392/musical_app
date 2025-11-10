@@ -46,6 +46,7 @@ const Ebbokcard:React.FC<EbookData> = ({data}) => {
                     </TouchableOpacity>
                 </View>
             ))
+            
         }
 
         {/* pdf downloading..... modal */}
@@ -103,5 +104,11 @@ const styles = StyleSheet.create({
         marginLeft:20,
         borderRadius:8,
         height:40
+    },
+    noDataText: {
+        color: '#fff',
+        fontSize: 18,
+        textAlign: 'center',
+        paddingVertical: 10,
     }
 })

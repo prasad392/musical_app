@@ -1,11 +1,14 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Tabs } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
+import Coursemodal from '@/src/modals/coursemodal/coursemodal'
 
 export default function TabsLayout() {
+    const [iscourse,setIscourse] = useState(false)
   return (
-    <Tabs
+    <>
+        <Tabs
     screenOptions={{
         tabBarActiveTintColor:'#ffd60a',
         headerShown:false,
@@ -39,7 +42,15 @@ export default function TabsLayout() {
                     styles.iconstyle,{borderTopColor: focused ? '#ffd60a' : 'transparent',}
                 ]}
                 >
-                    <Ionicons name='book' size={28} color={color}/>
+                    <Ionicons 
+                    name='book' 
+                    size={28} 
+                    color={color}
+                    onPress={(e)=>{
+                        e.preventDefault();
+                        setIscourse(true)
+                    }}
+                    />
                 </View>
             )
         }}
@@ -71,7 +82,7 @@ export default function TabsLayout() {
                     styles.iconstyle,{borderTopColor: focused ? '#ffd60a' : 'transparent',}
                 ]}
                 >
-                    <Ionicons name='chatbubble' size={28} color={color}/>
+                    <Ionicons name='chatbubble' size={28} color={color} />
                 </View>
             )
         }}
@@ -93,6 +104,10 @@ export default function TabsLayout() {
         }}
         />
     </Tabs>
+    <View style={{display: iscourse ? 'flex' : 'none'}}>
+        <Coursemodal onClose={()=>setIscourse(false)} visible={iscourse}/>
+    </View>
+    </>
   )
 }
 

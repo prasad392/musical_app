@@ -1,14 +1,13 @@
 import { View, Text, StatusBar, StyleSheet, ScrollView, Platform } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
+import Coursemodal from '@/src/modals/coursemodal/coursemodal';
 
 const Course = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#1D1D1D" />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Text style={{color:'#fff'}}>
-          Welcome to Course Page
-        </Text>
+       
       </ScrollView>
     </View>
   );
