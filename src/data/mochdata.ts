@@ -183,3 +183,41 @@ export const curriculumVideoCardData = [
 //     ]
 //   }
 // ]
+
+export const datesData = [
+  {date:'2025-11-12',event:'Attend classes'},
+  {date:'2025-11-21',event:'music practice'},
+  {date:'2025-12-20',event:'dance & music pactice'},
+  {date:'2025-12-22',event:'dance practice'},
+  {date:'2026-01-07',event:'Music concert'}
+]
+export const feedbackData = [
+  {
+    id:1,
+    dateis:'April 24, 2025',
+    nameis:'Nistala sivakameshwari',
+    course:'Course - 1 to 12 Saraliswaras',
+    comment:'Good improvisation! Keep it up.',
+    rating:'4.8',
+    img:require('@/assets/mentors/2e79d81f793e01b23fc9379682ef98731578ecae.png')
+  },
+  {
+    id:2,
+    dateis:'April 22, 2025',
+    nameis:'Kosuru krishnaveni',
+    course:'Course - 1 to 12 Saraliswaras',
+    comment:'Well done! keep going you are doing excellent.',
+    rating:'4.7',
+    img:require('@/assets/mentors/14d7098314fec7fcc655d594bb805a2c8ef74f12.png')
+  },
+  {
+    id:3,
+    dateis:'April 20, 2025',
+    nameis:'Vasavi Charani',
+    course:'Course - 1 to 12 Saraliswaras',
+    comment:'Good improvisation! Keep it up.',
+    rating:'4.5',
+    img:require('@/assets/mentors/c20ce90f8a3dde4ba7033a74cc3b4405a430a5c0.png')
+  },
+  
+]

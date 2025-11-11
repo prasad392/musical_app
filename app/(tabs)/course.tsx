@@ -7,7 +7,7 @@ const Course = () => {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#1D1D1D" />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-       
+       {/* <Text style={{color:'#fff'}}>check in page</Text> */}
       </ScrollView>
     </View>
   );
