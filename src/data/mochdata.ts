@@ -219,5 +219,5 @@ export const feedbackData = [
     rating:'4.5',
     img:require('@/assets/mentors/c20ce90f8a3dde4ba7033a74cc3b4405a430a5c0.png')
   },
-  
 ]
+
