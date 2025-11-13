@@ -9,6 +9,7 @@ import { MessageFilterData } from '@/src/data/messagesData';
 import Messagecard from '@/src/components/customcards/chatcards/messagecard';
 import Unreadmsgcard from '@/src/components/customcards/chatcards/unreadmsgcard';
 import Pinmsgcard from '@/src/components/customcards/chatcards/pinmsgcard';
+import Chatbox from '@/src/modals/messageboxmodal/chatbox';
 
 type messageItem ={
     messangerName: string,
@@ -29,10 +30,15 @@ const Chat = () => {
       ismsg:false,
       isfeed:true,
       showSuggetions:true,
+      showSuggetionsMsg:true,
     });
     const [searchText,setSearchText] = useState('');
+    const [searchTextMsg,setSearchTextMsg] = useState('');
+
     const filterData = feedbackData.filter(item=>item.nameis.toLowerCase().includes(searchText.toLowerCase()))
-    
+    const filterMsgData = MessageFilterData[0].msgdata.filter(item=>item.messangerName.toLowerCase().includes(searchTextMsg.toLowerCase()))
+    console.log('search data',filterMsgData)
+
     const optData = ['All inboxes','Read Messages','Unread Messages','pinned Messages','Updates']
     const [isClick,setIsClick] = useState(false);
     const [mainData,setMainData] = useState('All inboxes')
@@ -50,6 +56,13 @@ const Chat = () => {
         setHeaderText(messagesData?.messageHeadName)
       }
     }
+
+    // chat box opens
+    const [chatClick,setChatClick] = useState({
+      isopen:false,
+      isclose:true,
+      isConvo:false,
+    })
     return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#1D1D1D" />
@@ -92,13 +105,13 @@ const Chat = () => {
           </Text>
         </View>
       </View>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} nestedScrollEnabled={true}>
 
         {/* feedback box container */}
         {
           select.isfeed &&
           (
-            <View style={styles.feedBox}>
+            <ScrollView>
+              <View style={styles.feedBox}>
               <View style={styles.inputBox}>
                   <Ionicons name="search-outline" size={32} color="#fff" />
                   <TextInput
@@ -116,7 +129,7 @@ const Chat = () => {
                   searchText && select.showSuggetions && (
                     <View style={styles.searchResults}>
                         {
-                          filterData.length > 0 ? 
+                          filterData.length > 0 ?
                           (
                             filterData.map(item => (
                               <View key={item.id} style={styles.resultItem}>
@@ -175,26 +188,54 @@ const Chat = () => {
                   }
               </View>
             </View>
+            </ScrollView>
           )
         }
 
         {
           select.ismsg &&
           (
-            <View style={styles.msgBox}>
+            <>
+              <ScrollView>
+              <View style={styles.msgBox}>
                 <View style={styles.inputBox}>
                   <Ionicons name="search-outline" size={32} color="#fff" />
                   <TextInput
                       style={styles.inputSearch}
                       placeholder="Search in messages..."
                       placeholderTextColor="#aaa"
-                      value={searchText}
+                      value={searchTextMsg}
                       onChangeText={(txt)=>{
-                          setSearchText(txt)
-                          setSelect(prev=>({...prev,showSuggetions:true}))
+                          setSearchTextMsg(txt)
+                          setSelect(prev=>({...prev,showSuggetionsMsg:true}))
                       }}
                   />
                 </View>
+                {
+                  searchTextMsg && select.showSuggetionsMsg && (
+                    <View style={styles.searchResults}>
+                      {
+                        filterMsgData.length > 0 ?(
+                          filterMsgData.map((item,index)=>(
+                            <View key={index} style={styles.resultItem}>
+                              <Text
+                              style={styles.resultText}
+                                  onPress={() => {
+                                    setSearchTextMsg(item.messangerName);
+                                    setSelect(prev => ({ ...prev, showSuggetionsMsg: false }));
+                                  }}
+                              >
+                                {item.messangerName}
+                              </Text>
+                            </View>
+                          ))
+                        ):(
+                          <Text style={styles.noDataText}>No Data Found</Text>
+                        )
+                      }
+                    </View>
+                  )
+                }
                 <View style={styles.selectCon}>
                   <View style={styles.selectBox}>
                     <TouchableOpacity 
@@ -411,15 +452,51 @@ const Chat = () => {
                         </View>
                       ))
                      }
-
                      </>
                     )
                   }
               </View>
+              
             </View>
+            </ScrollView>
+            <View style={[styles.chatMsgBoxOpen,{display: chatClick.isopen ? 'flex' : 'none'}]}>
+              <TouchableOpacity
+              onPress={()=>{
+                setChatClick(prev=>({...prev,isConvo:true}))
+              }}
+              >
+                <Ionicons name='pencil-outline' size={42} color={'#ffd60a'}/>
+              </TouchableOpacity>
+              <TouchableOpacity
+              onPress={()=>{
+                setChatClick(prev=>({...prev,isopen:false,isclose:true}))
+              }}
+              >
+                <Text> <Ionicons name='chevron-forward-outline' size={38} color={'#fff'}/> </Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={[styles.chatMsgBoxClose,{display: chatClick.isclose ? 'flex' : 'none'}]}>
+              <TouchableOpacity
+              onPress={()=>{
+                setChatClick(prev=>({...prev,isclose:false,isopen:true}))
+              }}
+              >
+                <Ionicons name='chevron-back-outline' size={38} color={'#fff'}/>
+              </TouchableOpacity>
+            </View>
+            
+            <View style={{display: chatClick.isConvo ? 'flex' : 'none'}}>
+              <Chatbox
+              onClose={()=>setChatClick(prev=>({...prev,isConvo:false}))} 
+              visible={chatClick.isConvo}
+              />
+            </View>
+            </>
+            
           )
         }
-      </ScrollView>
+
     </View>
   );
 };
@@ -579,6 +656,34 @@ const styles = StyleSheet.create({
       height:'auto',
       width:'95%',
       marginHorizontal:'auto',
+    },
+    chatMsgBoxOpen:{
+      backgroundColor:'#000',
+      width:90,
+      height:60,
+      position:'absolute',
+      right:0,
+      // top:600,
+      zIndex:1000,
+      bottom:100,
+      flexDirection:'row',
+      alignItems:'center',
+      justifyContent:'center',
+      borderTopLeftRadius:12,
+      borderBottomLeftRadius:12
+    },
+    chatMsgBoxClose:{
+      backgroundColor:'#000',
+      position:'absolute',
+      right:0,
+       width:50,
+      height:50,
+      bottom:100,
+      flexDirection:'row',
+      alignItems:'center',
+      justifyContent:'center',
+      borderTopLeftRadius:12,
+      borderBottomLeftRadius:12
     }
 
 });
