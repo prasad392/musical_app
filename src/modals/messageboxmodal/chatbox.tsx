@@ -3,6 +3,9 @@ import React, { useState } from 'react'
 import Modalheader from '../modalheader/modalheader';
 import { TextInput } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
+import Contactcard from '@/src/components/customcards/chatboxcards/contactcard';
+import { Contact_details_Data } from '@/src/data/contactData';
+import ConvoModal from './convoModal';
 
 type props ={
     visible: boolean;
@@ -14,7 +17,11 @@ const Chatbox:React.FC<props> = ({onClose,visible}) => {
         inputClear: false,
         inputAdd: true,
     })
-  return (
+    const [searchText,setSearchText] = useState('')
+    const filterData = Contact_details_Data.filter(c => c.contactname.toLowerCase().includes(searchText.toLowerCase()))
+    const [showchat,setShowchat] = useState(false);
+    const [selectedname,setSelectedname] = useState('')
+    return (
     <Modal
     visible={visible}
     animationType='fade'
@@ -27,11 +34,10 @@ const Chatbox:React.FC<props> = ({onClose,visible}) => {
                     style={styles.inputSearch}
                     placeholder="Recipient"
                     placeholderTextColor="#aaa"
-                    // value={searchText}
-                    // onChangeText={(txt)=>{
-                    //     setSearchText(txt)
-                    //     setShowSuggestions(true)
-                    // }}
+                    value={searchText}
+                    onChangeText={(txt)=>{
+                        setSearchText(txt)
+                    }}
                     editable={inputSuggest.inputClear}
                 />
                 <Ionicons 
@@ -44,15 +50,40 @@ const Chatbox:React.FC<props> = ({onClose,visible}) => {
                 }}
                 
                 />
-                <Ionicons 
+                <Ionicons
                 name="close-circle" 
                 size={32} 
                 color="#ffd60a" 
                 style={{display: inputSuggest.inputClear ? 'flex' : 'none'}}
                 onPress={()=>{
                     setInputSuggest(prev=>({...prev,inputClear: false, inputAdd: true}))
+                    setSearchText('')
                 }}
                 />
+            </View>
+            <View>
+                {
+                     searchText &&(
+                        filterData.length > 0 ? (
+                            <Contactcard 
+                            data={filterData} 
+                            onpress={(name)=>{
+                                setShowchat(true)
+                                setSelectedname(name)
+                            }}
+                            />
+                        ):
+                        (
+                            <Text style={{ color: '#fff', textAlign: 'center', marginTop: 20,fontSize:18 }}>
+                                No contacts found
+                            </Text>
+                        )
+                        
+                    )
+                }
+                <View style={{display: showchat ? 'flex' : 'none'}}>
+                    <ConvoModal visible={showchat} onClose={()=>setShowchat(false)} contactName={selectedname}/>
+                </View>
             </View>
         </View>
     </Modal>

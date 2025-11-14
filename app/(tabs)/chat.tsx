@@ -51,7 +51,6 @@ const Chat = () => {
       setMainData(item)
       const messagesData = MessageFilterData.find(msg => msg.messageHeadName === item)
       if(messagesData){
-        console.log(messagesData)
         setQuickFilterData([messagesData])
         setHeaderText(messagesData?.messageHeadName)
       }
@@ -458,40 +457,42 @@ const Chat = () => {
               </View>
               
             </View>
-            </ScrollView>
-            <View style={[styles.chatMsgBoxOpen,{display: chatClick.isopen ? 'flex' : 'none'}]}>
-              <TouchableOpacity
-              onPress={()=>{
-                setChatClick(prev=>({...prev,isConvo:true}))
-              }}
-              >
-                <Ionicons name='pencil-outline' size={42} color={'#ffd60a'}/>
-              </TouchableOpacity>
-              <TouchableOpacity
-              onPress={()=>{
-                setChatClick(prev=>({...prev,isopen:false,isclose:true}))
-              }}
-              >
-                <Text> <Ionicons name='chevron-forward-outline' size={38} color={'#fff'}/> </Text>
-              </TouchableOpacity>
-            </View>
+              </ScrollView>
 
-            <View style={[styles.chatMsgBoxClose,{display: chatClick.isclose ? 'flex' : 'none'}]}>
-              <TouchableOpacity
-              onPress={()=>{
-                setChatClick(prev=>({...prev,isclose:false,isopen:true}))
-              }}
-              >
-                <Ionicons name='chevron-back-outline' size={38} color={'#fff'}/>
-              </TouchableOpacity>
-            </View>
-            
-            <View style={{display: chatClick.isConvo ? 'flex' : 'none'}}>
-              <Chatbox
-              onClose={()=>setChatClick(prev=>({...prev,isConvo:false}))} 
-              visible={chatClick.isConvo}
-              />
-            </View>
+              {/* chatting app  */}
+              <View style={[styles.chatMsgBoxOpen,{display: chatClick.isopen ? 'flex' : 'none'}]}>
+                <TouchableOpacity
+                onPress={()=>{
+                  setChatClick(prev=>({...prev,isConvo:true}))
+                }}
+                >
+                  <Ionicons name='pencil-outline' size={42} color={'#ffd60a'}/>
+                </TouchableOpacity>
+                <TouchableOpacity
+                onPress={()=>{
+                  setChatClick(prev=>({...prev,isopen:false,isclose:true}))
+                }}
+                >
+                  <Text> <Ionicons name='chevron-forward-outline' size={38} color={'#fff'}/> </Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={[styles.chatMsgBoxClose,{display: chatClick.isclose ? 'flex' : 'none'}]}>
+                <TouchableOpacity
+                onPress={()=>{
+                  setChatClick(prev=>({...prev,isclose:false,isopen:true}))
+                }}
+                >
+                  <Ionicons name='chevron-back-outline' size={38} color={'#fff'}/>
+                </TouchableOpacity>
+              </View>
+              
+              <View style={{display: chatClick.isConvo ? 'flex' : 'none'}}>
+                <Chatbox
+                onClose={()=>setChatClick(prev=>({...prev,isConvo:false}))} 
+                visible={chatClick.isConvo}
+                />
+              </View>
             </>
             
           )
