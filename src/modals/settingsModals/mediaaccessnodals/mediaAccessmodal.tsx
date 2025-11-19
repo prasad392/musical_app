@@ -24,13 +24,11 @@ const MediaAccessmodal:React.FC<props> = ({visible,onClose}) => {
             <Text style={styles.text}>App Permissions</Text>
             {
                 Items.map((item,index)=>(
-                    <>
-                        <View key={index} style={{marginBottom:20}}>
-                            <SettingItemCards
-                            ItemName={item}
-                            />
-                        </View>
-                    </>
+                    <View key={index} style={{marginBottom:20}}>
+                        <SettingItemCards
+                        ItemName={item}
+                        />
+                    </View>
                 ))
             }
             <View style={styles.pauseBox}>

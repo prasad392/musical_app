@@ -4,6 +4,8 @@ import Componentheader from '@/src/components/componentheader';
 import { Ionicons } from '@expo/vector-icons';
 import Userprofilemodal from '@/src/modals/settingsModals/userprofilemodal';
 import MediaAccessmodal from '@/src/modals/settingsModals/mediaaccessnodals/mediaAccessmodal';
+import Shareapp from '@/src/modals/settingsModals/shareapp/shareapp';
+import Changepasswordmodal from '@/src/modals/settingsModals/changepasswordModals/changepasswordmodal';
 
 const Settings = () => {
 
@@ -12,6 +14,8 @@ const Settings = () => {
     isdark: true,
     useropen: false,
     medAccess: false,
+    shareapp: false,
+    changepassword: false,
   })
   return (
     <>
@@ -62,9 +66,13 @@ const Settings = () => {
             </TouchableOpacity>
         </View>
 
+        {/* change password setting */}
         <View style={[styles.userProfileBox,{marginTop:0,marginBottom:10}]}>
             <Text style={styles.ufText} >Change Password</Text>
             <TouchableOpacity
+              onPress={()=>{
+                setSettingsClicks(prev=>({...prev,changepassword: true}))
+              }}
             >
               <Text> <Ionicons name='chevron-forward' color={"#fff"} size={40}/> </Text>
             </TouchableOpacity>
@@ -82,6 +90,7 @@ const Settings = () => {
         <View style={[styles.userProfileBox,{marginTop:0,marginBottom:10}]}>
             <Text style={styles.ufText} >Share app</Text>
             <TouchableOpacity
+            onPress={()=>setSettingsClicks(prev=>({...prev,shareapp:true}))}
             >
               <Text> <Ionicons name='chevron-forward' color={"#fff"} size={40}/> </Text>
             </TouchableOpacity>
@@ -113,6 +122,22 @@ const Settings = () => {
       <MediaAccessmodal
       visible={settingsClicks.medAccess}
       onClose={()=>setSettingsClicks(prev=>({...prev,medAccess: false}))}
+      />
+    </View>
+
+    {/* share app modal */}
+    <View style={{display: settingsClicks.shareapp ? 'flex' : 'none'}}>
+      <Shareapp
+      visible={settingsClicks.shareapp}
+      onClose={()=>setSettingsClicks(prev=>({...prev,shareapp:false}))}
+      />
+    </View>
+
+    {/* change password modal */}
+    <View style={{display: settingsClicks.changepassword ? 'flex' : 'none'}}>
+      <Changepasswordmodal
+      visible={settingsClicks.changepassword}
+      onClose={()=>setSettingsClicks(prev=>({...prev,changepassword: false}))}
       />
     </View>
     </>

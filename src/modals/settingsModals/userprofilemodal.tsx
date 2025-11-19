@@ -86,6 +86,7 @@ const Userprofilemodal:React.FC<props> = ({visible,onClose}) => {
                     </View>
                 </TouchableOpacity>
             </View>
+            
             <View style={styles.emailedit}>
                 <View style={styles.emailImg}>
                     <Ionicons name='location' color={"#ffd60a"} size={42}/>

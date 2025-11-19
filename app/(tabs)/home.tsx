@@ -71,7 +71,7 @@ const Home = () => {
           loop
           width={width}
           height={220}
-          autoPlay={false}
+          autoPlay={true}
           autoPlayInterval={3000}
           data={banners}
           scrollAnimationDuration={1000}
